@@ -51,7 +51,6 @@ def general_parsing():
     filtered_Words = filtered_Words.lower()
     words = filtered_Words.split()
     words.sort()
-    num_words = len(words)
 
     for word in words:
         for w in forbidden_words:
