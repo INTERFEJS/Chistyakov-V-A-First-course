@@ -4,10 +4,11 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
         System.out.print("Введите размер квадратно матрицы: ");
+        
         int n = scanner.nextInt();
-
         Matrix matrix = new Matrix(n);
         
         System.out.println(matrix);
