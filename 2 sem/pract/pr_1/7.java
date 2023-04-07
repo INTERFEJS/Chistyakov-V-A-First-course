@@ -13,7 +13,6 @@ class NumSqrt {
 
         while(number != 0){
         
-        
         sqrt = Math.sqrt(number);
         String result = String.format("%.0f", sqrt);
         System.out.println("Ближайшее число: " +result);
@@ -25,6 +24,8 @@ class NumSqrt {
         number = in.nextInt();
 
         }
+
+        in.close();
 
     }
     
