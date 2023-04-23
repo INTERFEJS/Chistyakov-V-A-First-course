@@ -3,70 +3,91 @@ package pract.pr_1;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-class triangles {
+class Triangles {
     
-    public static void main(String[] args){
-
+    public static void main(String[] args) {
+        //Создаём массивы
         ArrayList <Integer> arrayOfNumbers = new ArrayList<>();
         ArrayList <Integer> finalArray = new ArrayList<>();
+        ArrayList <Double> arrayOfCorner = new ArrayList<>();
 
         Scanner in = new Scanner(System.in);
         System.out.println("Введите длины отрезков.");
 
-        for(int i = 0; i != 3; i++){
-
+        //Вводим размеры отрезков и сохраняем в массив
+        for (int i = 0; i != 3; i++) {
             System.out.print("Введите размер "+(i+1));
             System.out.print("го отрезка: ");
             arrayOfNumbers.add(in.nextInt());
             System.out.println();
+        }
+        
+        in.close();
 
+        //Исключаем максимальное значение, чтобы применить следствие из неравенства треугольника
+        var max = arrayOfNumbers.get(0);
+
+        for (int num : arrayOfNumbers) {
+            finalArray.add(num);
+            if (num > max) {
+                max = num;
+            }
         }
 
-        int min = arrayOfNumbers.get(0);
-        System.out.println("min "+min);
-        int sumMin = 0;
-        int ind, num;
+        //Проверяем можно ли составить из отрезков треугольник
+        double a, b, c;
+        int indMax = arrayOfNumbers.indexOf(max);
+        arrayOfNumbers.remove(indMax);
+        if (max < (arrayOfNumbers.get(0)+arrayOfNumbers.get(1))) {
 
-        while(1<arrayOfNumbers.size()){
+            //Если можно, то с помощью теоремы косинусов находим углы треугольника
+            //и сохраняем их в массив
+            System.out.println("Из этих отрезков можно составить треугольник!");
 
-            num = arrayOfNumbers.get(1);
-            System.out.println(num);
-            if (num < min || num == min) {
-                min = num;
-                sumMin += min;
-                ind = arrayOfNumbers.indexOf(min);
-                finalArray.add(min);
-                arrayOfNumbers.remove(ind);
+            //Первый угол
+            double cosA = (((Math.pow(finalArray.get(0), 2)
+            + (Math.pow(finalArray.get(2), 2))
+            - (Math.pow(finalArray.get(1), 2))) 
+            / (2 * (finalArray.get(0)) * (finalArray.get(2)))));
+            a = Math.toDegrees(Math.acos(cosA));
+            arrayOfCorner.add(a);
 
-            }
-            else{
+            //Второй угол
+            double cosB = (((Math.pow(finalArray.get(0), 2)
+            + (Math.pow(finalArray.get(1), 2))
+            - (Math.pow(finalArray.get(2), 2))) 
+            / (2 * (finalArray.get(0)) * (finalArray.get(1)))));
+            b = Math.toDegrees(Math.acos(cosB));
+            arrayOfCorner.add(b);
 
-                if(arrayOfNumbers.indexOf(0) > arrayOfNumbers.indexOf(1)){
-                ind = arrayOfNumbers.indexOf(num);
-                num = arrayOfNumbers.get(1);
-                finalArray.add(num);
-                num = arrayOfNumbers.get(0);
-                finalArray.add(num);
-                arrayOfNumbers.remove(ind);
+            //Третий угол
+            double cosC = (((Math.pow(finalArray.get(1), 2)
+            + (Math.pow(finalArray.get(2), 2))
+            - (Math.pow(finalArray.get(0), 2))) 
+            / (2 * (finalArray.get(2)) * (finalArray.get(1)))));
+            c = Math.toDegrees(Math.acos(cosC));
+            arrayOfCorner.add(c);
+            
+            //Теперь найдём наибольший внешний угол исключив наименьший внутренний угол
+            var min = arrayOfCorner.get(0);
 
-                }
-                else{
-
-                ind = arrayOfNumbers.indexOf(num);
-                num = arrayOfNumbers.get(0);
-                finalArray.add(num);
-                num = arrayOfNumbers.get(1);
-                finalArray.add(num);
-                arrayOfNumbers.remove(ind);
-
-                }
+        for (double n : arrayOfCorner) {
+            if (n > min) {
+                min = n;
             }
         }
         
-        System.out.println(finalArray);
+        int indMin = arrayOfCorner.indexOf(min);
+        arrayOfNumbers.remove(indMin);
+        double maxCorner = arrayOfCorner.get(0) + arrayOfCorner.get(1);
+        String result = String.format("%.2f", maxCorner);
+        System.out.print("Наибольший внешний угол треугольника равен: "+result);
+        System.out.print("°");
+        }
+        else {
+            System.out.println("Из этих отрезков нельзя составить треугольник!");
 
-
-
+        }
     }
 
 }

@@ -9,9 +9,9 @@ def get_words_dict(words):
     return words_dict
 
 
-words_dict = get_words_dict(words)
-print(f"Кол-во слов: {len(words)}")
-print(f"Кол-во уникальных слов: {len(words_dict)}")
+#words_dict = get_words_dict(words)
+#print(f"Кол-во слов: {len(words)}")
+#print(f"Кол-во уникальных слов: {len(words_dict)}")
 print("Все использованные слова:")
-for word in words_dict:
-    print(word.ljust(20), words_dict[word])
+#for word in words_dict:
+#    print(word.ljust(20), words_dict[word])

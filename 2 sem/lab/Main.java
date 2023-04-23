@@ -11,7 +11,7 @@ public class Main {
         int n = scanner.nextInt();
         Matrix matrix = new Matrix(n);
         
-        System.out.println(matrix);
+        System.out.println(matrix.toString());
 
         System.out.println("Диагональные элементы: " + matrix.getDiagonalСalculation());
 
